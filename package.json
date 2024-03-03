@@ -10,13 +10,17 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.4.0",
+    "@hookform/error-message": "^2.0.1",
+    "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "5.10.2",
+    "@types/dom-view-transitions": "^1.0.4",
     "argon2": "^0.40.1",
     "next": "14.1.0",
     "next-auth": "^4.24.6",
     "prisma": "^5.10.2",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.50.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {

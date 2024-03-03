@@ -2,26 +2,23 @@ import { z } from "zod";
 
 export const NewUserSchema = z
   .object({
-    name: z.string({ required_error: "El nombre es requerido" }),
-    email: z.string().email(),
+    name: z.string({ required_error: "The username is required" }),
+    email: z.string({ required_error: "The email is required" }).email(),
     password: z
-      .string()
-      .regex(
-        /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&]).{8,32}$/,
-        "La contraseña no es segura"
-      ),
-    confirmPassword: z
-      .string()
-      .regex(
-        /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&]).{8,32}$/,
-        "La contraseña no es segura"
-      ),
+      .string({ required_error: "The password is required" })
+      .regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&]).{8,32}$/),
+    confirmPassword: z.string({
+      required_error: "Confirm password is required`",
+    }),
   })
-  .superRefine(({ confirmPassword, password }, ctx) => {
-    if (confirmPassword !== password) {
-      ctx.addIssue({
-        code: "custom",
-        message: "Las contraseñas no coinciden",
-      });
-    }
+  .refine(({ password, confirmPassword }) => password === confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"], // path of error
   });
+
+export const LoginUserSchema = z.object({
+  email: z.string({ required_error: "Email is required" }).email(),
+  password: z
+    .string({ required_error: "Password is required" })
+    .regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&]).{8,32}$/),
+});

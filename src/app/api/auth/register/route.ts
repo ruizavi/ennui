@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/libs/prisma";
 import { hash } from "argon2";
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   const data: NewUser = await req.json();
 
   const { success } = NewUserSchema.safeParse(data);
