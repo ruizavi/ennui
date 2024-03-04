@@ -1,11 +1,10 @@
 import { DefaultSession, NextAuthOptions, getServerSession } from "next-auth";
-import { Adapter } from "next-auth/adapters";
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "./prisma";
 import { verify } from "argon2";
 import Credentials from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "./prisma-adapter";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -17,17 +16,21 @@ declare module "next-auth" {
 
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
+    session: ({ session, token }) => ({
       ...session,
       user: {
         ...session.user,
-        id: user.id,
+        id: token.sub,
       },
     }),
   },
-  adapter: PrismaAdapter(prisma) as Adapter,
+  adapter: PrismaAdapter(prisma),
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     Credentials({
+      id: "credentials",
       credentials: {
         email: { type: "text" },
         password: { type: "password" },
@@ -40,22 +43,22 @@ export const authOptions: NextAuthOptions = {
           where: { email: credentials.email },
         });
 
-        if (!foundUser) return null;
-
-        if (!foundUser.password) return null;
+        if (!foundUser) throw new Error("User not found");
 
         const comparePassword = verify(
-          foundUser.password,
+          foundUser.password as string,
           credentials.password
         );
 
-        if (!comparePassword) return null;
+        if (!comparePassword) throw new Error("Password is incorrect");
 
-        return {
+        const user = {
           id: foundUser.id,
           email: foundUser.email,
           name: foundUser.name,
         };
+
+        return user;
       },
     }),
     GitHubProvider({
@@ -67,6 +70,9 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
   ],
+  pages: {
+    signIn: "/auth/login",
+  },
 };
 
 export const getServerAuthSession = () => getServerSession(authOptions);

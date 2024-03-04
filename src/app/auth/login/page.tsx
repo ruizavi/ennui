@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginUserSchema } from "@/libs/zod";
 import LinkTransition from "@/components/LinkTransition";
 import { ErrorMessage } from "@hookform/error-message";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const {
@@ -20,15 +21,20 @@ export default function Page() {
     resolver: zodResolver(LoginUserSchema),
   });
 
+  const router = useRouter();
+
   const onSubmit = handleSubmit(async (data) => {
     try {
       const res = await signIn("credentials", {
-        redirect: false,
         email: data.email,
         password: data.password,
+        redirect: false,
       });
 
-      console.log(res);
+      if (!res?.ok) throw new Error();
+
+      router.push("/dashboard");
+      router.refresh();
     } catch (error) {
       console.log(error);
     }
