@@ -7,6 +7,7 @@ export function PrismaAdapter(
   const p = prisma as PrismaClient;
 
   return {
+    getUserByEmail: async (email) => p.user.findFirst({ where: { email } }),
     createUser: async (data) => await p.user.create({ data }),
     getUser: async (id) => await p.user.findUnique({ where: { id } }),
     getUserByAccount: async (provider) => {

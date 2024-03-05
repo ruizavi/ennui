@@ -43,21 +43,24 @@ export default function Page() {
   return (
     <main className="h-dvh md:flex">
       <section className="grid w-full md:w-1/2 lg:w-4/12">
-        <form onSubmit={onSubmit}>
+        <header>
           <h1 className="my-12 text-4xl font-bold text-center">Log In</h1>
           <p className="text-xl font-bold text-center">Or</p>
-          <div className="flex justify-center gap-8 my-8">
-            <Image
-              src={Github}
-              alt="Github Log In"
+          <div className=" mt-12 flex justify-center gap-8">
+            <button
               className="w-12 p-1 border rounded-full"
-            />
+              onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
+            >
+              <Image src={Github} alt="Github Log In" />
+            </button>
             <Image
               src={Gmail}
               alt="Gmail Log In"
               className="w-12 p-1 border rounded-full"
             />
           </div>
+        </header>
+        <form onSubmit={onSubmit}>
           <div className="mx-12 my-8">
             <label className="block">Email</label>
             <input
