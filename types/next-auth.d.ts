@@ -1,16 +1,17 @@
 import NextAuth, { DefaultSession } from "next-auth";
+import { DefaultJWT } from "@auth/core/jwt";
 
 declare module "next-auth" {
-  interface Session extends DefaultSession {
+  // Extend session to hold the access_token
+  interface Session {
+    access_token: string & DefaultSession;
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
-    } & DefaultSession["user"];
+    } & DefaultSession.User;
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  // Extend token to hold the access_token before it gets put into session
+  interface JWT {
+    access_token: string & DefaultJWT;
+  }
 }

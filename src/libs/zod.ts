@@ -22,3 +22,8 @@ export const LoginUserSchema = z.object({
     .string({ required_error: "Password is required" })
     .regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&]).{8,32}$/),
 });
+
+export const BoardSchema = z.object({
+  name: z.string({ required_error: "Board's name is required" }),
+  background: z.string().url().optional(),
+});

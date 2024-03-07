@@ -1,4 +1,4 @@
-import { DefaultSession, NextAuthOptions, getServerSession } from "next-auth";
+import { NextAuthOptions, getServerSession } from "next-auth";
 import prisma from "./prisma";
 import { verify } from "argon2";
 import Credentials from "next-auth/providers/credentials";
@@ -6,23 +6,28 @@ import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "./prisma-adapter";
 
-declare module "next-auth" {
-  interface Session extends DefaultSession {
-    user: {
-      id: string;
-    } & DefaultSession["user"];
-  }
-}
-
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, token }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: token.sub,
-      },
-    }),
+    session: ({ session, token }) => {
+      if (token?.user) {
+        session.user = token.user;
+      }
+
+      return session;
+    },
+    jwt: ({ token, user }) => {
+      console.log({ user, token });
+      if (!user) {
+        token.user = {
+          id: token.sub as string,
+          email: token.email,
+          name: token.name,
+          image: token.picture,
+        };
+      }
+
+      return token;
+    },
   },
   adapter: PrismaAdapter(prisma),
   session: {
@@ -36,7 +41,7 @@ export const authOptions: NextAuthOptions = {
         password: { type: "password" },
       },
       name: "Credentials",
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         if (!credentials) return null;
 
         const foundUser = await prisma.user.findFirst({
@@ -76,4 +81,4 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-export const getServerAuthSession = () => getServerSession(authOptions);
+export const getAuth = () => getServerSession(authOptions);

@@ -16,7 +16,7 @@ export default function Page() {
     <>
       <h1>Protected Page</h1>
       <p>You can view this page because you are signed in.</p>
-      <code>{JSON.stringify(session, null, 2)}</code>
+      <code>{JSON.stringify(session)}</code>
     </>
   );
 }
