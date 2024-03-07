@@ -16,7 +16,6 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     jwt: ({ token, user }) => {
-      console.log({ user, token });
       if (!user) {
         token.user = {
           id: token.sub as string,
