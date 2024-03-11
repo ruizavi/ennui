@@ -1,6 +1,7 @@
 import IsAuthenticate from "@/components/IsAuthenticate";
 import { BoardList } from "@/components/boards/BoardList";
 import { DashboardNavbar } from "@/components/layout/DashboardNavbar";
+import { ModalContainer } from "@/components/modal/ModalContainer";
 
 export default function Layout({
   children,
@@ -13,8 +14,9 @@ export default function Layout({
         <DashboardNavbar>
           <BoardList />
         </DashboardNavbar>
-        <main className="">{children}</main>
+        <main className="w-full h-full">{children}</main>
       </div>
+      <ModalContainer />
     </IsAuthenticate>
   );
 }

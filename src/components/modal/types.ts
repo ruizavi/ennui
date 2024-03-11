@@ -6,6 +6,9 @@ export type ModalPosition =
   | "top-right"
   | "top-center"
   | "top-left"
+  | "middle-right"
+  | "middle-center"
+  | "middle-left"
   | "bottom-right"
   | "bottom-center"
   | "bottom-left";
@@ -20,6 +23,10 @@ export type ModalContent<T = unknown> =
 
 export interface ModalOptions<Data = unknown> {
   modalId?: Id;
+  classNames?: {
+    modal?: string;
+    overlay?: string;
+  };
   onOpen?: () => void;
   onClose?: () => void;
   data?: Data;

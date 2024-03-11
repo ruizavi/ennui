@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { ModalT } from "./types";
 import { ModalState } from "./observer";
 import { Modal } from "./Modal";
@@ -35,9 +37,14 @@ export function ModalContainer() {
   );
 
   return (
-    <section>
+    <section className="">
       {modals.map((modal) => (
-        <Modal key={modal.modalId} modal={modal} closeModal={closeModal} />
+        <Modal
+          key={modal.modalId}
+          modal={modal}
+          closeModal={closeModal}
+          {...modal.props}
+        />
       ))}
     </section>
   );

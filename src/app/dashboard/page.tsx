@@ -1,22 +1,34 @@
 "use client";
-import { ModalContainer } from "@/components/modal/ModalContainer";
 import { modal } from "@/components/modal/observer";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 export default function Page() {
   const searchParams = useSearchParams();
+  const [test, setTest] = useState<boolean>(true);
 
   return (
     <>
       <button
         onClick={() =>
-          modal<{ hola: string }>(
-            ({ closeModal, hola }) => (
-              <p onClick={closeModal}>holaaaaa{hola}</p>
+          modal<{ hola: string; otra: boolean }>(
+            ({ closeModal, hola, otra }) => (
+              <p>
+                holaaaaa{hola}
+                <button onClick={closeModal}>x</button>
+                <button onClick={() => setTest((value) => !value)}>
+                  otro button
+                </button>
+                {JSON.stringify(otra)}
+              </p>
             ),
             {
               data: {
                 hola: crypto.randomUUID(),
+                otra: test,
+              },
+              classNames: {
+                modal: `w-1/2 ${test ? "bg-white" : ""}`,
               },
             }
           )
@@ -25,7 +37,6 @@ export default function Page() {
         que tal?
       </button>
       <code>{JSON.stringify(searchParams.getAll("id"))}</code>
-      <ModalContainer />
     </>
   );
 }
