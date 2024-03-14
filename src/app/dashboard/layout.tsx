@@ -10,11 +10,11 @@ export default function Layout({
 }>) {
   return (
     <IsAuthenticate>
-      <div className="flex w-screen h-screen">
+      <div className="flex w-screen h-screen p-4 bg-[#DCD5E0] gap-4">
         <DashboardNavbar>
           <BoardList />
         </DashboardNavbar>
-        <main className="w-full h-full">{children}</main>
+        <main className="w-full h-full bg-white rounded-xl">{children}</main>
       </div>
       <ModalContainer />
     </IsAuthenticate>

@@ -1,33 +1,44 @@
 "use client";
 
+import { useExpand } from "@/hooks/useExpand";
+import { SIDEBAR_EXPAND } from "@/libs/const";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
 import React from "react";
-import { AddBoardButton } from "../boards/AddBoardButton";
-import { Modal } from "../Modal";
+import DefaultProfile from "@/assets/default-profile.png";
+import { LogoutIcon } from "../icons/LogoutIcon";
+import { AddIcon } from "../icons/AddIcon";
 
 export function DashboardNavbar({ children }: { children: React.ReactNode }) {
   const { data } = useSession();
 
+  const { location } = useExpand();
+
   return (
-    <>
-      <nav className="z-20 flex shrink-0 grow-0 justify-around  border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg dark:border-slate-600/60 dark:bg-slate-800/50 fixed top-2/4 -translate-y-2/4 left-2 min-h-[auto] min-w-[64px] max-w-[128px] overflow-ellipsis transition-all flex-col rounded-lg ">
-        <header className="p-2 ">
-          <Image
-            src={data?.user.image}
-            alt={data?.user.name}
-            width={64}
-            height={64}
-            className="mx-auto rounded-full"
-          />
-          <h1 className="font-bold text-center">{data?.user.name}</h1>
-        </header>
-        <main>{children}</main>
-        <footer className="flex justify-around">
-          <AddBoardButton />
-        </footer>
-      </nav>
-      <Modal listen="hola">hola</Modal>
-    </>
+    <nav
+      className={`bg-white rounded-xl truncate transition-[width] ${
+        location[SIDEBAR_EXPAND] ? "w-[270px]" : "w-[56px]"
+      } transition-all duration-500 p-3 relative`}
+    >
+      <header className="flex gap-4 items-center">
+        <Image
+          src={data?.user.image || DefaultProfile}
+          alt={data?.user.name}
+          width={30}
+          height={30}
+        />
+        <p className="font-semibold">{data?.user.name}</p>
+      </header>
+      <button className="py-4 w-full hover:[&>svg]:fill-[#CD4A7B] ">
+        <AddIcon className="fill-[#C11D5A] mx-auto" width={24} height={24} />
+      </button>
+      <main>{children}</main>
+      <footer className="absolute bottom-3 ">
+        <button onClick={() => signOut()} className="flex gap-4 items-center">
+          <LogoutIcon className="fill-[#C11D5A]" width={30} height={30} />
+          <p className="font-semibold">Log Out</p>
+        </button>
+      </footer>
+    </nav>
   );
 }
