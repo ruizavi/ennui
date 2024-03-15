@@ -18,7 +18,7 @@ export function DashboardNavbar({ children }: { children: React.ReactNode }) {
     <nav
       className={`bg-white rounded-xl truncate transition-[width] ${
         location[SIDEBAR_EXPAND] ? "w-[270px]" : "w-[56px]"
-      } transition-all duration-500 p-3 relative`}
+      } transition-all duration-500 p-3 flex flex-col z-10`}
     >
       <header className="flex gap-4 items-center">
         <Image
@@ -33,7 +33,7 @@ export function DashboardNavbar({ children }: { children: React.ReactNode }) {
         <AddIcon className="fill-[#C11D5A] mx-auto" width={24} height={24} />
       </button>
       <main>{children}</main>
-      <footer className="absolute bottom-3 ">
+      <footer className="justify-self-end mt-auto">
         <button onClick={() => signOut()} className="flex gap-4 items-center">
           <LogoutIcon className="fill-[#C11D5A]" width={30} height={30} />
           <p className="font-semibold">Log Out</p>
