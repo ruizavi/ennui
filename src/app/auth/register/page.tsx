@@ -1,6 +1,6 @@
 "use client";
 
-import LinkTransition from "@/components/LinkTransition";
+import LinkTransition from "@/components/utils/LinkTransition";
 import { NewUser } from "@/libs/types";
 import { NewUserSchema } from "@/libs/zod";
 import { ErrorMessage } from "@hookform/error-message";

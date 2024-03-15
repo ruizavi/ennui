@@ -8,7 +8,7 @@ import { LoginUser } from "@/libs/types";
 import { signIn } from "next-auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginUserSchema } from "@/libs/zod";
-import LinkTransition from "@/components/LinkTransition";
+import LinkTransition from "@/components/utils/LinkTransition";
 import { ErrorMessage } from "@hookform/error-message";
 import { useRouter } from "next/navigation";
 

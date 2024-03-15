@@ -1,4 +1,5 @@
-import { ModalT, ModalContent, ModalOptions } from "./types";
+import { ElementType } from "react";
+import { ModalT, ModalOptions } from "./types";
 
 class Observer {
   observers: ((modal: ModalT) => void)[] = [];
@@ -21,12 +22,12 @@ class Observer {
 export const ModalState = new Observer();
 
 const modalFunction = <T = unknown>(
-  content: ModalContent<T>,
+  jsx: ElementType,
   options?: ModalOptions<T>
 ) => {
   const id = options?.modalId ?? crypto.randomUUID();
 
-  ModalState.addModal({ content, props: options, modalId: id });
+  ModalState.addModal({ jsx, props: options, modalId: id });
 
   return id;
 };

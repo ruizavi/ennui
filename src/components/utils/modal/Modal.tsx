@@ -42,13 +42,13 @@ export function Modal(props: Props) {
 
   const render = useCallback(
     (modal: ModalT) => {
-      const C: any = modal.content;
+      const C = modal.jsx;
 
       const props = modal.props?.data ?? {};
 
       return <C closeModal={handleClose} {...props} key={modal.modalId} />;
     },
-    [modal.content]
+    [modal.jsx]
   );
 
   useEffect(() => {

@@ -1,7 +1,7 @@
-import IsAuthenticate from "@/components/IsAuthenticate";
 import { BoardList } from "@/components/boards/BoardList";
 import { DashboardNavbar } from "@/components/layout/DashboardNavbar";
-import { ModalContainer } from "@/components/modal/ModalContainer";
+import IsAuthenticate from "@/components/utils/IsAuthenticate";
+import { ModalContainer } from "@/components/utils/modal/ModalContainer";
 
 export default function Layout({
   children,

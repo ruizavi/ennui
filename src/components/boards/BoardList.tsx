@@ -1,7 +1,7 @@
 import { Board } from "@prisma/client";
 import { cookies } from "next/headers";
 import { BoardListElement } from "./BoardListElement";
-import { Each } from "../Each";
+import { Each } from "../utils/Each";
 
 async function getBoardListByUser() {
   const res = await fetch("http://localhost:3000/api/board", {
