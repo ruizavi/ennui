@@ -1,5 +1,6 @@
 import { BoardList } from "@/components/boards/BoardList";
 import { DashboardNavbar } from "@/components/layout/DashboardNavbar";
+import { ToggleButton } from "@/components/layout/ToggleButton";
 import IsAuthenticate from "@/components/utils/IsAuthenticate";
 import { ModalContainer } from "@/components/utils/modal/ModalContainer";
 
@@ -14,7 +15,10 @@ export default function Layout({
         <DashboardNavbar>
           <BoardList />
         </DashboardNavbar>
-        <main className="w-full h-full bg-white rounded-xl">{children}</main>
+        <main className="w-full h-full bg-white rounded-xl relative z-10">
+          <ToggleButton />
+          {children}
+        </main>
       </div>
       <ModalContainer />
     </IsAuthenticate>

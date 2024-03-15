@@ -25,7 +25,7 @@ export function Tooltip({
       {message ? (
         <span
           ref={tooltipRef}
-          className="absolute top-10 scale-0 transition-all rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100"
+          className="absolute top-10 scale-0 transition-all rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100 z-50"
         >
           {message}
         </span>
