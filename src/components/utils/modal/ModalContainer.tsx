@@ -37,7 +37,7 @@ export function ModalContainer() {
   );
 
   return (
-    <section className="">
+    <section className="z-50">
       {modals.map((modal) => (
         <Modal
           key={modal.modalId}

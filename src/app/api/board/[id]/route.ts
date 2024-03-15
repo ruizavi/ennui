@@ -4,6 +4,29 @@ import { BoardSchema } from "@/libs/zod";
 import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
+export async function GET(
+  req: NextRequest,
+  {
+    params,
+  }: {
+    params: { id: string };
+  }
+) {
+  const session = await getAuth();
+
+  if (!session) return NextResponse.error();
+
+  const board = await prisma?.board.findUnique({ where: { id: params.id } });
+
+  if (!board)
+    return NextResponse.json(
+      { msg: "Board Not Exists", success: false },
+      { status: 404 }
+    );
+
+  return NextResponse.json(board);
+}
+
 export async function PUT(
   req: NextRequest,
   { params }: { params: { id: string } }

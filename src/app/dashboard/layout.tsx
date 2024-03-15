@@ -3,6 +3,8 @@ import { DashboardNavbar } from "@/components/layout/DashboardNavbar";
 import { ToggleButton } from "@/components/layout/ToggleButton";
 import IsAuthenticate from "@/components/utils/IsAuthenticate";
 import { ModalContainer } from "@/components/utils/modal/ModalContainer";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export default function Layout({
   children,
@@ -15,9 +17,9 @@ export default function Layout({
         <DashboardNavbar>
           <BoardList />
         </DashboardNavbar>
-        <main className="w-full h-full bg-white rounded-xl relative z-10">
+        <main className="w-full h-full bg-white rounded-xl relative">
           <ToggleButton />
-          {children}
+          <Suspense fallback={<Loading />}>{children}</Suspense>
         </main>
       </div>
       <ModalContainer />

@@ -13,11 +13,10 @@ interface Props {
 
 export function BoardListElement({ id, name }: Props) {
   const router = useRouter();
-  const pathname = usePathname();
 
   const { location } = useExpand();
 
-  const handleClick = (id: string) => router.push(`${pathname}?id=${id}`);
+  const handleClick = (id: string) => router.push(`/dashboard/${id}`);
 
   return (
     <li className="flex gap-4 items-center" onClick={() => handleClick(id)}>

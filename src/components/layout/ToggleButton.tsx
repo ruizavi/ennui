@@ -7,7 +7,7 @@ export const ToggleButton = () => {
   const { location, toggle } = useExpand();
   return (
     <button
-      className="group absolute left-0 top-1/2 hidden -translate-y-1/2 xl:!block outline-none"
+      className="group absolute left-0 top-1/2 hidden -translate-y-1/2 xl:!block outline-none z-50"
       onClick={() => toggle(SIDEBAR_EXPAND)}
     >
       <div className="flex h-[72px] w-8 items-center justify-center">

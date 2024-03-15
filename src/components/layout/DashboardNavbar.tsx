@@ -10,6 +10,7 @@ import { LogoutIcon } from "../icons/LogoutIcon";
 import { AddIcon } from "../icons/AddIcon";
 import { modal } from "../utils/modal/observer";
 import { BoardModal } from "../boards/BoardModal";
+import { useRouter } from "next/navigation";
 
 const modalCall = () =>
   modal(BoardModal, {
@@ -20,6 +21,8 @@ const modalCall = () =>
 
 export function DashboardNavbar({ children }: { children: React.ReactNode }) {
   const { data } = useSession();
+
+  const router = useRouter();
 
   const { location } = useExpand();
 
@@ -35,6 +38,7 @@ export function DashboardNavbar({ children }: { children: React.ReactNode }) {
           alt={data?.user.name}
           width={30}
           height={30}
+          onClick={() => router.push("/dashboard")}
         />
         <p className="font-semibold">{data?.user.name}</p>
       </header>
