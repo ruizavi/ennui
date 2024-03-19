@@ -4,12 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import { getAuth } from "@/libs/nextauth-options";
 
-export async function POST({ json }: NextRequest) {
+export async function POST(req: NextRequest) {
   const session = await getAuth();
 
   if (!session) return NextResponse.error();
 
-  const data: Board = await json();
+  const data: Board = await req.json();
 
   const { success } = BoardSchema.safeParse(data);
 

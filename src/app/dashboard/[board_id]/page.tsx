@@ -1,5 +1,6 @@
+import { AddIcon } from "@/components/icons/AddIcon";
+import { Lists } from "@/components/lists/Lists";
 import { Show } from "@/components/utils/Show";
-import { Board } from "@/libs/types";
 import { cookies } from "next/headers";
 import Image from "next/image";
 
@@ -37,21 +38,30 @@ export default async function Page({
   return (
     <Show>
       <Show.When isTrue={typeof data === "object"}>
-        <div className="w-full h-full rounded-lg overflow-hidden relative">
+        <div className="w-full h-full rounded-lg overflow-hidden relative p-4">
           <Show>
             <Show.When isTrue={data?.metadata.background !== undefined}>
               <Image
                 src={data?.metadata.background as string}
                 alt="board background"
                 fill
-                className="w-full h-full object-cover opacity-50"
+                className="size-full object-cover opacity-50"
               />
             </Show.When>
           </Show>
-          que tal?
+          <div className="flex gap-4 z-20 relative overflow-auto h-full scroll-smooth">
+            <Lists boardId={params.board_id} />
+            <button className="group min-w-[256px] w-[256px] p-2 bg-none outline-none border-dashed h-[56px] border-2 border-white hover:border-white/60">
+              <AddIcon
+                className=" group-hover:fill-white/60 fill-white mx-auto"
+                width={30}
+                height={30}
+              />
+            </button>
+          </div>
         </div>
       </Show.When>
-      <Show.Else>No hay datos = ()</Show.Else>
+      <Show.Else>No hay datos = (</Show.Else>
     </Show>
   );
 }

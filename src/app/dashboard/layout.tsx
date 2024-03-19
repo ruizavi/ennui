@@ -17,7 +17,7 @@ export default function Layout({
         <DashboardNavbar>
           <BoardList />
         </DashboardNavbar>
-        <main className="w-full h-full bg-white rounded-xl relative">
+        <main className="w-full h-full bg-white rounded-xl relative overflow-hidden">
           <ToggleButton />
           <Suspense fallback={<Loading />}>{children}</Suspense>
         </main>

@@ -9,14 +9,16 @@ export async function GET(
   {
     params,
   }: {
-    params: { id: string };
+    params: { board_id: string };
   }
 ) {
   const session = await getAuth();
 
   if (!session) return NextResponse.error();
 
-  const board = await prisma?.board.findUnique({ where: { id: params.id } });
+  const board = await prisma?.board.findUnique({
+    where: { id: params.board_id },
+  });
 
   if (!board)
     return NextResponse.json(
@@ -29,7 +31,7 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { board_id: string } }
 ) {
   const session = await getAuth();
 
@@ -44,7 +46,7 @@ export async function PUT(
   const metadata = { background: data.background } as Prisma.JsonObject;
 
   const updatedBoard = await prisma?.board.update({
-    where: { id: params.id, userId: session.user.id },
+    where: { id: params.board_id, userId: session.user.id },
     data: {
       name: data.name,
       metadata,
@@ -56,7 +58,7 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { board_id: string } }
 ) {
   const session = await getAuth();
 
@@ -64,7 +66,7 @@ export async function DELETE(
 
   const deletedBoard = await prisma?.board.delete({
     where: {
-      id: params.id,
+      id: params.board_id,
       userId: session.user.id,
     },
   });
