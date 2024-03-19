@@ -45,7 +45,6 @@ export function ListOfLists({
         `http://localhost:3000/api/board/${boardId}/list`,
         { body: JSON.stringify(update), method: "PATCH" }
       );
-      console.log(res);
 
       if (!res.ok) setLists(prevList);
     } catch (error) {

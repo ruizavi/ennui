@@ -1,3 +1,4 @@
+import { AddList } from "@/components/button/AddListButton";
 import { AddIcon } from "@/components/icons/AddIcon";
 import { Lists } from "@/components/lists/Lists";
 import { Show } from "@/components/utils/Show";
@@ -49,15 +50,11 @@ export default async function Page({
               />
             </Show.When>
           </Show>
-          <div className="flex gap-4 z-20 relative overflow-auto h-full scroll-smooth">
-            <Lists boardId={params.board_id} />
-            <button className="group min-w-[256px] w-[256px] p-2 bg-none outline-none border-dashed h-[56px] border-2 border-white hover:border-white/60">
-              <AddIcon
-                className=" group-hover:fill-white/60 fill-white mx-auto"
-                width={30}
-                height={30}
-              />
-            </button>
+          <div className="z-10 relative h-full overflow-auto scroll-smooth">
+            <div className="flex gap-4 ">
+              <Lists boardId={params.board_id} />
+              <AddList boardId={params.board_id} />
+            </div>
           </div>
         </div>
       </Show.When>

@@ -1,4 +1,3 @@
-import { Card, List } from "@prisma/client";
 import { cookies } from "next/headers";
 import { ListOfLists } from "./ListOfLists";
 import { Show } from "../utils/Show";
