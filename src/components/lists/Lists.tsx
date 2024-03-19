@@ -1,7 +1,8 @@
-import { List } from "@prisma/client";
+import { Card, List } from "@prisma/client";
 import { cookies } from "next/headers";
 import { ListOfLists } from "./ListOfLists";
 import { Show } from "../utils/Show";
+import { UIList } from "@/libs/types";
 
 export async function Lists({ boardId }: { boardId: string }) {
   async function getLists(id: string) {
@@ -15,9 +16,9 @@ export async function Lists({ boardId }: { boardId: string }) {
 
       if (!res.ok) throw new Error();
 
-      const data = (await res.json()) as unknown as List[];
+      const data = await res.json();
 
-      return data;
+      return data as unknown as UIList[];
     } catch (error) {}
   }
 
@@ -26,7 +27,7 @@ export async function Lists({ boardId }: { boardId: string }) {
   return (
     <Show>
       <Show.When isTrue={data !== undefined}>
-        <ListOfLists lists={data as List[]} boardId={boardId} />
+        <ListOfLists lists={data as UIList[]} boardId={boardId} />
       </Show.When>
     </Show>
   );

@@ -27,3 +27,8 @@ export const BoardSchema = z.object({
   name: z.string({ required_error: "Board's name is required" }),
   background: z.string().url().optional(),
 });
+
+export const ListSchema = z.object({
+  name: z.string({ required_error: "List name is required" }),
+  color: z.string().optional(),
+});

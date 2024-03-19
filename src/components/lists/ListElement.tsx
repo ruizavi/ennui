@@ -1,9 +1,9 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { List } from "@prisma/client";
 import { MoveIcon } from "../icons/MoveIcon";
+import { UIList } from "@/libs/types";
 
-export const ListElement = (props: List) => {
+export const ListElement = (props: UIList) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: props.id });
 
@@ -13,8 +13,17 @@ export const ListElement = (props: List) => {
   };
 
   return (
-    <li style={style} className="w-[270px] bg-white bg-opacity-30 rounded-lg">
-      <header className="flex justify-between bg-white bg-opacity-50 rounded-t-lg">
+    <li
+      style={style}
+      className={`w-[270px] ${
+        props.metadata?.color ? `bg-[${props.metadata.color}]` : "bg-white"
+      } bg-opacity-30 rounded-lg`}
+    >
+      <header
+        className={`flex justify-between ${
+          props.metadata?.color ? `bg-[${props.metadata.color}]` : "bg-white"
+        } bg-opacity-50 rounded-t-lg`}
+      >
         <h1 className="text-center py-2 font-semibold w-full">{props.name}</h1>
         <button
           ref={setNodeRef}

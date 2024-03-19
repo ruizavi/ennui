@@ -1,6 +1,9 @@
 import { getAuth } from "@/libs/nextauth-options";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/libs/prisma";
+import { ZList } from "@/libs/types";
+import { ListSchema } from "@/libs/zod";
+import { Prisma } from "@prisma/client";
 
 export async function POST(
   req: NextRequest,
@@ -10,7 +13,11 @@ export async function POST(
 
   if (!session) return NextResponse.error();
 
-  const data: { name: string } = await req.json();
+  const data: ZList = await req.json();
+
+  const { success } = ListSchema.safeParse(data);
+
+  if (!success) throw new Error();
 
   const predecessor = await prisma?.list.findFirst({
     where: {
@@ -22,10 +29,13 @@ export async function POST(
     take: 1,
   });
 
+  const metadata = { color: data.color } as Prisma.JsonObject;
+
   const firstListOfBoard = await prisma?.list.create({
     data: {
       name: data.name,
       boardId: params.board_id,
+      metadata,
       position: predecessor ? predecessor.position + 1 : 0,
     },
   });
@@ -45,6 +55,9 @@ export async function GET(
     where: { boardId: params.board_id },
     orderBy: {
       position: "asc",
+    },
+    include: {
+      card: true,
     },
   });
 

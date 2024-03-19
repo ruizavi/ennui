@@ -9,12 +9,14 @@ import {
 import { List } from "@prisma/client";
 import { useState } from "react";
 import { ListElement } from "./ListElement";
+import { Each } from "../utils/Each";
+import { UIList } from "@/libs/types";
 
 export function ListOfLists({
   lists,
   boardId,
 }: {
-  lists: List[];
+  lists: UIList[];
   boardId: string;
 }) {
   const [list, setLists] = useState(
@@ -56,9 +58,7 @@ export function ListOfLists({
     <DndContext collisionDetection={closestCenter} onDragEnd={dragEnd}>
       <ul className="flex gap-4">
         <SortableContext items={list} strategy={horizontalListSortingStrategy}>
-          {list.map((a) => (
-            <ListElement {...a} key={a.id} />
-          ))}
+          <Each of={list} render={(l) => <ListElement {...l} key={l.id} />} />
         </SortableContext>
       </ul>
     </DndContext>
