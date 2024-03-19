@@ -7,5 +7,7 @@ export type LoginUser = z.infer<typeof LoginUserSchema>;
 export type Board = z.infer<typeof BoardSchema>;
 export type ZList = z.infer<typeof ListSchema>;
 
-export type UIList = Omit<List, "metadata"> &
-  Card[] & { metadata: { color?: string } };
+export type UIList = Omit<List, "metadata"> & {
+  metadata: { color?: string };
+  card: Card[];
+};
