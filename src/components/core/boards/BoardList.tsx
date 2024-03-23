@@ -1,9 +1,9 @@
+import { Each } from "@/components/utils/Each";
+import { BoardFallback } from "@/components/utils/fallbacks/BoardFallback";
 import { BoardElement } from "./BoardElement";
-import { Each } from "../utils/Each";
 import { getBoardsByUser } from "@/libs/query";
 import { Board } from "@prisma/client";
 import { Suspense } from "react";
-import { BoardFallback } from "../fallbacks/BoardFallback";
 
 export async function BoardList() {
   const data = await getBoardsByUser();
