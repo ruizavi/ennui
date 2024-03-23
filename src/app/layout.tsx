@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "./globalicon.css";
 import SessionAuthProvider from "@/context/useSessionAuth";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -15,9 +16,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const classNames = [
+    inter.className,
+    "flex w-screen h-screen p-4 bg-[#DCD5E0] gap-4",
+  ];
+
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={classNames.join(" ")}>
         <SessionAuthProvider>{children}</SessionAuthProvider>
       </body>
     </html>

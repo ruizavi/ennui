@@ -1,12 +1,13 @@
 "use client";
 
 import { Controller, useForm } from "react-hook-form";
-import { CloseIcon } from "../icons/CloseIcon";
-import { ModalProps } from "../utils/modal/types";
+import { CloseIcon } from "../../utils/icons/CloseIcon";
+import { ModalProps } from "../../utils/modal/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ListSchema } from "@/libs/zod";
 import { ZList } from "@/libs/types";
 import { CirclePicker, TwitterPicker } from "react-color";
+import { revalidateTag } from "next/cache";
 
 export function ListModal({
   closeModal,

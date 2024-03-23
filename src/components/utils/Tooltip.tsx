@@ -1,11 +1,15 @@
 "use client";
 
 import { PropsWithChildren, useRef } from "react";
+import { twMerge } from "tailwind-merge";
+
+const TOOLTIP_CLASSES = "absolute top-10 scale-0 transition-all rounded z-50";
 
 export function Tooltip({
   message,
   children,
-}: PropsWithChildren<{ message: string }>) {
+  className = "bg-gray-800 p-2 text-xs text-white group-hover:scale-100",
+}: PropsWithChildren<{ message: string; className?: string }>) {
   const tooltipRef = useRef<HTMLSpanElement>(null);
   const container = useRef<HTMLDivElement>(null);
 
@@ -23,10 +27,7 @@ export function Tooltip({
     >
       {children}
       {message ? (
-        <span
-          ref={tooltipRef}
-          className="absolute top-10 scale-0 transition-all rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100 z-50"
-        >
+        <span ref={tooltipRef} className={twMerge(TOOLTIP_CLASSES, className)}>
           {message}
         </span>
       ) : null}

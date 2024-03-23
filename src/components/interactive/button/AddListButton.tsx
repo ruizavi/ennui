@@ -1,8 +1,8 @@
 "use client";
 
-import { AddIcon } from "../icons/AddIcon";
-import { ListModal } from "../lists/ListModal";
-import { modal } from "../utils/modal/observer";
+import { AddIcon } from "@/components/utils/icons/AddIcon";
+import { modal } from "@/components/utils/modal/observer";
+import { ListModal } from "../modals/ListModal";
 
 const modalCall = (id: string) =>
   modal<{ boardId: string }>(ListModal, {
@@ -15,7 +15,7 @@ const modalCall = (id: string) =>
 
 export const AddList = ({ boardId }: { boardId: string }) => (
   <button
-    className="group min-w-[256px] w-[256px] p-2 bg-none outline-none border-dashed h-[56px] border-2 border-white hover:border-white/60"
+    className="group min-w-[256px] w-[256px] p-2 bg-none outline-none border-dashed h-[80px] border-2 border-white hover:border-white/60"
     onClick={() => modalCall(boardId)}
   >
     <AddIcon

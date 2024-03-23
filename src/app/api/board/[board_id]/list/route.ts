@@ -4,6 +4,7 @@ import prisma from "@/libs/prisma";
 import { ZList } from "@/libs/types";
 import { ListSchema } from "@/libs/zod";
 import { Prisma } from "@prisma/client";
+import { revalidateTag } from "next/cache";
 
 export async function POST(
   req: NextRequest,
@@ -39,6 +40,8 @@ export async function POST(
       position: predecessor ? predecessor.position + 1 : 0,
     },
   });
+
+  revalidateTag(`lists`);
 
   return NextResponse.json(firstListOfBoard);
 }

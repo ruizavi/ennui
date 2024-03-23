@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { ModalT } from "./types";
 import { ModalState } from "./observer";
 import { Modal } from "./Modal";
+import { Each } from "../Each";
 
 export function ModalContainer() {
   const [modals, setModals] = useState<ModalT[]>([]);
@@ -38,14 +39,17 @@ export function ModalContainer() {
 
   return (
     <section className="z-50">
-      {modals.map((modal) => (
-        <Modal
-          key={modal.modalId}
-          modal={modal}
-          closeModal={closeModal}
-          {...modal.props}
-        />
-      ))}
+      <Each
+        of={modals}
+        render={(modal) => (
+          <Modal
+            key={modal.modalId}
+            modal={modal}
+            closeModal={closeModal}
+            {...modal.props}
+          />
+        )}
+      />
     </section>
   );
 }

@@ -1,10 +1,8 @@
-import { BoardList } from "@/components/boards/BoardList";
-import { DashboardNavbar } from "@/components/layout/DashboardNavbar";
-import { ToggleButton } from "@/components/layout/ToggleButton";
+import { BoardList } from "@/components/core/boards/BoardList";
+import { ToggleButton } from "@/components/interactive/button/ToggleButton";
+import Sidebar from "@/components/layout/sidebar/Sidebar";
 import IsAuthenticate from "@/components/utils/IsAuthenticate";
 import { ModalContainer } from "@/components/utils/modal/ModalContainer";
-import { Suspense } from "react";
-import Loading from "./loading";
 
 export default function Layout({
   children,
@@ -13,16 +11,14 @@ export default function Layout({
 }>) {
   return (
     <IsAuthenticate>
-      <div className="flex w-screen h-screen p-4 bg-[#DCD5E0] gap-4">
-        <DashboardNavbar>
-          <BoardList />
-        </DashboardNavbar>
-        <main className="w-full h-full bg-white rounded-xl relative overflow-hidden">
-          <ToggleButton />
-          <Suspense fallback={<Loading />}>{children}</Suspense>
-        </main>
-      </div>
-      <ModalContainer />
+      <Sidebar>
+        <BoardList />
+      </Sidebar>
+      <main className="w-full h-full bg-white rounded-xl overflow-hidden relative">
+        <ToggleButton />
+        {children}
+        <ModalContainer />
+      </main>
     </IsAuthenticate>
   );
 }

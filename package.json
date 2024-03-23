@@ -19,6 +19,7 @@
     "@prisma/client": "5.10.2",
     "@types/dom-view-transitions": "^1.0.4",
     "argon2": "^0.40.1",
+    "is-hotkey": "^0.2.0",
     "next": "14.1.0",
     "next-auth": "^4.24.6",
     "prisma": "^5.10.2",
@@ -26,10 +27,15 @@
     "react-color": "^2.19.3",
     "react-dom": "^18",
     "react-hook-form": "^7.50.1",
+    "slate": "^0.102.0",
+    "slate-history": "^0.100.0",
+    "slate-react": "^0.102.0",
+    "tailwind-merge": "^2.2.2",
     "zod": "^3.22.4",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@types/is-hotkey": "^0.1.10",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-color": "^3.0.12",

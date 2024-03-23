@@ -13,3 +13,9 @@ export function toBool(value: string | boolean | null): boolean {
 
   return false;
 }
+
+export function toData(data: FormData) {
+  const values = Object.fromEntries(data);
+
+  return values;
+}
