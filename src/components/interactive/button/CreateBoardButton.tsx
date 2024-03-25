@@ -15,7 +15,7 @@ export const createBoardModalCall = (action: ActionFunc) =>
     data: { action },
   });
 
-export function AddBoardButton({ action }: Props) {
+export function CreateBoardButton({ action }: Props) {
   return (
     <button
       className="py-4 w-full hover:[&>svg]:fill-[#CD4A7B] outline-none"

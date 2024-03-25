@@ -3,7 +3,7 @@ import { getBoardById } from "@/libs/query";
 import { Suspense } from "react";
 import Image from "next/image";
 import { BoardColumns } from "@/components/core/lists/BoardColumns";
-import { AddList } from "@/components/interactive/button/AddListButton";
+import { CreateListButton } from "@/components/interactive/button/CreateListButton";
 
 export default async function Page({
   searchParams,
@@ -33,7 +33,7 @@ export default async function Page({
         <div className="z-10 relative h-full overflow-auto scroll-smooth">
           <div className="flex gap-4 ">
             <BoardColumns boardId={searchParams?.board as string} />
-            <AddList boardId={searchParams?.board as string} />
+            <CreateListButton boardId={searchParams?.board as string} />
           </div>
         </div>
       </div>

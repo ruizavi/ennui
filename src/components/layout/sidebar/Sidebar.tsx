@@ -3,7 +3,7 @@ import { SidebarContainer } from "./SidebarContainer";
 import { SidebarHeader } from "./SidebarHeader";
 import { createBoard } from "@/libs/mutation";
 import { SidebarFooter } from "./SidebarFooter";
-import { AddBoardButton } from "@/components/interactive/button/AddBoardButton";
+import { CreateBoardButton } from "@/components/interactive/button/CreateBoardButton";
 
 export default async function Sidebar({
   children,
@@ -13,7 +13,7 @@ export default async function Sidebar({
   return (
     <SidebarContainer>
       <SidebarHeader />
-      <AddBoardButton action={createBoard} />
+      <CreateBoardButton action={createBoard} />
       <main>{children}</main>
       <SidebarFooter />
     </SidebarContainer>
