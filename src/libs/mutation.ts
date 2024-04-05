@@ -1,6 +1,5 @@
 "use server";
 
-import { Prisma } from "@prisma/client";
 import { getAuth } from "@/libs/nextauth-options";
 
 import { BoardSchema } from "@/libs/zod";
@@ -15,7 +14,7 @@ export async function createBoard(data: FormData) {
 
   const { name, background } = BoardSchema.parse(values);
 
-  const metadata = { background } as Prisma.JsonObject;
+  const metadata = JSON.stringify({ background });
 
   return await prisma?.board.create({
     data: {

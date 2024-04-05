@@ -43,7 +43,7 @@ export async function PUT(
 
   if (!success) return NextResponse.error();
 
-  const metadata = { background: data.background } as Prisma.JsonObject;
+  const metadata = JSON.stringify({ background: data.background });
 
   const updatedBoard = await prisma?.board.update({
     where: { id: params.board_id, userId: session.user.id },

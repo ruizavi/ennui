@@ -30,7 +30,7 @@ export async function POST(
     take: 1,
   });
 
-  const metadata = { color: data.color } as Prisma.JsonObject;
+  const metadata = JSON.stringify({ color: data.color });
 
   const firstListOfBoard = await prisma?.list.create({
     data: {

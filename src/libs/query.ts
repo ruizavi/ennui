@@ -25,7 +25,11 @@ export async function getBoardById(id?: string) {
 
   if (!board) throw new Error();
 
-  const metadata = board.metadata as { background?: string };
+  let metadata: Record<string, string> = {};
+
+  if (board.metadata) {
+    metadata = { ...JSON.parse(board.metadata) };
+  }
 
   return { ...board, metadata };
 }
